@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkMultipleProvidersWorkflow.EntityFramework.Providers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,7 +21,10 @@ namespace EntityFrameworkMultipleProvidersWorkflow.EntityFramework.LocalSetup
 
         private static IServiceCollection SetupLocalEfProvider(IServiceCollection collection)
         {
-            collection.AddDbContext<TodoItemsDbContext, TodoItemsLocalDbContext>();
+            collection.AddDbContext<TodoItemsDbContext, TodoItemsLocalDbContext>(options =>
+            {
+                options.UseSqlite("DataSource=file::memory:?cache=shared");
+            });
 
             collection.AddSingleton<SqlLiteDatabaseConnectionPersistor>();
             collection.AddTransient<SqlLiteDatabaseInitializer>();
@@ -30,7 +34,10 @@ namespace EntityFrameworkMultipleProvidersWorkflow.EntityFramework.LocalSetup
 
         private static IServiceCollection SetupSqlServerEfProvider(IServiceCollection collection)
         {
-            collection.AddDbContext<TodoItemsDbContext, TodoItemsSqlServerDbContext>();
+            collection.AddDbContext<TodoItemsDbContext, TodoItemsSqlServerDbContext>(options =>
+            {
+                options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=TodoListDatabase;MultipleActiveResultSets=True;Trusted_Connection=True");
+            });
 
             return collection;
         }
