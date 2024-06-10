@@ -36,3 +36,6 @@ namespace EntityFrameworkMultipleProvidersWorkflow.Api
         }
     }
 }
+
+// MIGRATIONS COMMAND
+// Add-Migration YourMessageHere -Context TodoItemsSqlServerDbContext
