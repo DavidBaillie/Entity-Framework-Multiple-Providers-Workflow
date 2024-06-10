@@ -1,0 +1,6 @@
+@EntityFrameworkMultipleProvidersWorkflow.Api_HostAddress = http://localhost:5123
+
+GET {{EntityFrameworkMultipleProvidersWorkflow.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
