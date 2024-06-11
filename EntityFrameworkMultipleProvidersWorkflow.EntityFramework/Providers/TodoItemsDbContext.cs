@@ -4,6 +4,10 @@ using System;
 
 namespace EntityFrameworkMultipleProvidersWorkflow.EntityFramework.Providers
 {
+    /// <summary>
+    /// This database context is the one used by all classes in the project to access the data persistence layer. Providers inherit from this 
+    /// context and provide the exact implementation of persistence. Anything in this class will be applied to all providers.
+    /// </summary>
     public abstract class TodoItemsDbContext : DbContext
     {
         public DbSet<TodoItem> Items { get; set; }
