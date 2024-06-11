@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EntityFrameworkMultipleProvidersWorkflow.Api.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route("api/items")]
     public class ItemsController : ControllerBase
     {
         private readonly IAsyncRepository<TodoItem> repository;
@@ -15,7 +15,7 @@ namespace EntityFrameworkMultipleProvidersWorkflow.Api.Controllers
             this.repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult> GetAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await repository.GetAsync(id, cancellationToken);
@@ -36,7 +36,7 @@ namespace EntityFrameworkMultipleProvidersWorkflow.Api.Controllers
             return Ok(dbItem);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             await repository.DeleteAsync(id, cancellationToken);
